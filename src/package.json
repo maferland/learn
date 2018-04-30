@@ -6,5 +6,8 @@
   "repository": "https://github.com/maferland/learn",
   "author": "Marc-Antoine Ferland <maf.ferland@gmail.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "scripts": {
+    "tic-tac-toe": "node src/tic-tac-toe/index.js"
+  }
 }
