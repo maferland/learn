@@ -1,0 +1,10 @@
+{
+  "name": "Learn",
+  "version": "1.0.0",
+  "description": "Track my CS progress",
+  "main": "index.js",
+  "repository": "https://github.com/maferland/learn",
+  "author": "Marc-Antoine Ferland <maf.ferland@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
