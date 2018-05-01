@@ -16,6 +16,7 @@ class Game {
     for (let i = 0; i < size; i++) {
       this.printRow(i);
     }
+    console.log();
   }
 
   printRow(rowNum) {
@@ -32,8 +33,21 @@ class Game {
     const firstIndex = row * size;
     return this.grid.slice(firstIndex, firstIndex + size);
   }
+
+  play(x, y, player) {
+    const index = this.getIndex(x, y);
+    const token = player == 0 ? tokens.first : token.second;
+    this.grid[index] = token;
+  }
+
+  getIndex(x, y) {
+    return x + y * size;
+  }
 }
 
 
 const game = new Game();
+
+game.printGrid();
+game.play(0, 0, 0);
 game.printGrid();
