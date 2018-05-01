@@ -6,11 +6,21 @@ const tokens = {
 };
 
 // Tic Tac Toe game
-class Game {
+module.exports = class Game {
   constructor() {
     this.cellCount = Math.pow(size, 2);
     this.grid = Array.from(tokens.empty.repeat(this.cellCount));
     this.turn = 0;
+    this.tie = false;
+    this.over = false;
+  }
+
+  getTie() {
+    return this.tie;
+  }
+
+  getOver() {
+    return this.over;
   }
 
   printGrid() {
@@ -37,24 +47,23 @@ class Game {
 
     const lines = rows.concat(cols).concat(diagonals);
 
-    let over = false;
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const set = new Set(line);
       if (set.size === 1 && line[0] != tokens.empty) {
-        over = true;
+        this.over = true;
         break;
       }
     }
 
-    if (over) {
+    if (this.over) {
       console.log('Somebody has won!');
     }
     else if (this.turn === 9) {
       console.log(`It's a tie!`)
+      this.over = true;
+      this.tie = true;
     }
-
-    return over;
   }
 
   getRow(row) {
@@ -103,47 +112,3 @@ class Game {
     return x + y * size;
   }
 }
-
-let game = new Game();
-
-console.log('Validate grid printing');
-console.log('Validate play function');
-console.log('Validate no overwrite rule');
-game.printGrid();
-game.play(0, 0, 0);
-game.printGrid();
-game.play(0, 0, 1);
-game.play(0, 1, 1);
-game.printGrid();
-
-
-console.log('Validate isOver() -- Horizontal')
-game.play(1, 0, 0);
-game.printGrid();
-
-game.play(2, 0, 0);
-game.printGrid();
-
-console.log('Validate isOver() -- Vertical')
-game = new Game();
-game.printGrid();
-game.play(0, 0, 0);
-game.play(0, 1, 0);
-game.play(0, 2, 0);
-game.printGrid();
-
-console.log('Validate isOver() -- Diagonal')
-game = new Game();
-game.printGrid();
-game.play(0, 0, 0);
-game.play(1, 1, 0);
-game.play(2, 2, 0);
-game.printGrid();
-
-console.log('Validate isOver() -- Diagonal')
-game = new Game();
-game.printGrid();
-game.play(0, 2, 0);
-game.play(1, 1, 0);
-game.play(2, 0, 0);
-game.printGrid();
