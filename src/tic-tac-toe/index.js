@@ -33,22 +33,24 @@ class Game {
   isOver() {
     const rows = Array.from({ length: size }, (v, i) => this.getRow(i));
     const cols = Array.from({ length: size }, (v, i) => this.getCol(i));
-    const diagonals = [];
+    const diagonals = this.getDiagonals();
 
     const lines = rows.concat(cols).concat(diagonals);
 
     let over = false;
-    for (line in lines) {
-      if (new Set(line).length > 1 && line[0] != tokens.empty) {
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const set = new Set(line);
+      if (set.size === 1 && line[0] != tokens.empty) {
         over = true;
         break;
       }
     }
 
-    if(over) {
+    if (over) {
       console.log('Somebody has won!');
     }
-    else if(this.turn === 9) {
+    else if (this.turn === 9) {
       console.log(`It's a tie!`)
     }
 
@@ -63,8 +65,23 @@ class Game {
   getCol(col) {
     return Array.from({ length: size },
       (_, i) =>
-        this.grid(this.getIndex(col, i))
+        this.grid[this.getIndex(col, i)]
     );
+  }
+
+  getDiagonals() {
+    let diagonals = new Array(2);
+    diagonals[0] = [];
+    diagonals[1] = [];
+    let i = 0;
+
+    for (let i = 0; i < size; i++) {
+      let index = this.getIndex(i, i);
+      diagonals[0].push(this.grid[index]);
+      index = this.getIndex(size - 1 - i, i);
+      diagonals[1].push(this.grid[index]);
+    }
+    return diagonals;
   }
 
   play(x, y, player) {
@@ -75,9 +92,9 @@ class Game {
     }
     const token = player == 0 ? tokens.first : tokens.second;
     this.grid[index] = token;
-    ++turn;
+    ++this.turn;
 
-    if(this.isOver()) {
+    if (this.isOver()) {
       console.log('Game over');
     }
   }
@@ -87,9 +104,11 @@ class Game {
   }
 }
 
+let game = new Game();
 
-const game = new Game();
-
+console.log('Validate grid printing');
+console.log('Validate play function');
+console.log('Validate no overwrite rule');
 game.printGrid();
 game.play(0, 0, 0);
 game.printGrid();
@@ -97,5 +116,34 @@ game.play(0, 0, 1);
 game.play(0, 1, 1);
 game.printGrid();
 
+
+console.log('Validate isOver() -- Horizontal')
 game.play(1, 0, 0);
+game.printGrid();
+
 game.play(2, 0, 0);
+game.printGrid();
+
+console.log('Validate isOver() -- Vertical')
+game = new Game();
+game.printGrid();
+game.play(0, 0, 0);
+game.play(0, 1, 0);
+game.play(0, 2, 0);
+game.printGrid();
+
+console.log('Validate isOver() -- Diagonal')
+game = new Game();
+game.printGrid();
+game.play(0, 0, 0);
+game.play(1, 1, 0);
+game.play(2, 2, 0);
+game.printGrid();
+
+console.log('Validate isOver() -- Diagonal')
+game = new Game();
+game.printGrid();
+game.play(0, 2, 0);
+game.play(1, 1, 0);
+game.play(2, 0, 0);
+game.printGrid();
