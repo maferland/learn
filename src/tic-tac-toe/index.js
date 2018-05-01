@@ -10,6 +10,7 @@ class Game {
   constructor() {
     this.cellCount = Math.pow(size, 2);
     this.grid = Array.from(tokens.empty.repeat(this.cellCount));
+    this.turn = 0;
   }
 
   printGrid() {
@@ -36,12 +37,21 @@ class Game {
 
   play(x, y, player) {
     const index = this.getIndex(x, y);
-    const token = player == 0 ? tokens.first : token.second;
+    if(this.grid[index] != tokens.empty) {
+      console.log('This cell is already taken. Play again!');
+      return;
+    }
+    const token = player == 0 ? tokens.first : tokens.second;
     this.grid[index] = token;
+    ++turn;
   }
 
   getIndex(x, y) {
     return x + y * size;
+  }
+
+  isOver() {
+    
   }
 }
 
@@ -50,4 +60,7 @@ const game = new Game();
 
 game.printGrid();
 game.play(0, 0, 0);
+game.printGrid();
+game.play(0, 0, 1);
+game.play(0, 1, 1);
 game.printGrid();
