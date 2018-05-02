@@ -6,7 +6,7 @@ class Diamond {
   makeDiamond(letter) {
     const index = this.letters.indexOf(letter);
 
-    if(index === 0) {
+    if (index === 0) {
       return 'A\n';
     }
 
@@ -15,7 +15,7 @@ class Diamond {
       rows.push(this.makeRow(i, index));
     }
 
-    for(let i = index - 1; i >= 0; --i) {
+    for (let i = index - 1; i >= 0; --i) {
       rows.push(rows[i]);
     }
 
@@ -47,15 +47,13 @@ class Diamond {
     return `${arround}${letter}${middle}${letter}${arround}`
   }
 }
+
 module.exports = Diamond;
 
-let output = new Diamond().makeDiamond('A');
-console.log(output);
-output = new Diamond().makeDiamond('B');
-console.log(output);
-output = new Diamond().makeDiamond('C');
-console.log(output);
-output = new Diamond().makeDiamond('D');
-console.log(output);
-output = new Diamond().makeDiamond('E');
-console.log(output);
+const diamond = new Diamond();
+
+console.log(diamond.makeDiamond('A'));
+console.log(diamond.makeDiamond('B'));
+console.log(diamond.makeDiamond('C'));
+console.log(diamond.makeDiamond('D'));
+console.log(diamond.makeDiamond('E'));
