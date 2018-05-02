@@ -1,5 +1,5 @@
 {
-  "name": "Learn",
+  "name": "learn",
   "version": "1.0.0",
   "description": "Track my CS progress",
   "main": "index.js",
@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "tic-tac-toe": "node src/tic-tac-toe/index.js",
+    "tic-tac-toe": "jest --testPathPattern src/tic-tac-toe/",
+    "diamond": "jest --testPathPattern src/diamond/",
     "test": "jest"
   },
   "devDependencies": {

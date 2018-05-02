@@ -1,4 +1,4 @@
-const Game = require('./index');
+const Game = require('./tic-tac-toe');
 
 describe('Tic tac toe', () => {
   test('Initial game scenario', () => {
